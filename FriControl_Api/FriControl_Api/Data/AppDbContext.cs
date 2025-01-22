@@ -1,0 +1,17 @@
+﻿using FriControl_Api.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace FriControl_Api.Data;
+
+public class AppDbContext : DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
+    
+    public DbSet<FuncionarioModel> Funcionarios { get; set; }
+    public DbSet<SetorFuncionario> SetorFuncionarios { get; set; }    
+    public DbSet<ItemModel> Items { get; set; }
+    public DbSet<CategoriaItemModel> Categorias { get; set; }
+    public DbSet<UsuarioModel> Usuarios { get; set; }
+}

@@ -10,6 +10,6 @@ public class ItemModel
     public string? ObservacoesItem { get; set; }
     public string ModeloItem { get; set; }
     
-    public FuncionarioModel Funcionario { get; set; }
+    public FuncionarioModel? Funcionario { get; set; } 
     public CategoriaItemModel Categoria { get; set; }
 }
