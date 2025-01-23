@@ -9,7 +9,8 @@ public class ItemModel
     public string NomeItem { get; set; }
     public string? ObservacoesItem { get; set; }
     public string ModeloItem { get; set; }
+    public bool Ativo { get; set; }
     
     public FuncionarioModel? Funcionario { get; set; } 
-    public CategoriaItemModel Categoria { get; set; }
+    public CategoriaItemModel? Categoria { get; set; }
 }
