@@ -1,5 +1,6 @@
 ﻿using FriControl_Api.Data;
 using FriControl_Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FriControl_Api.Service;
 
@@ -45,6 +46,8 @@ public class ItemService : IItemInterface
                 serviceResponse.Dados = null;
                 serviceResponse.Mensagem = "informar dados do item";
                 serviceResponse.Sucesso = false;
+                
+                return serviceResponse;
             }
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
@@ -59,23 +62,119 @@ public class ItemService : IItemInterface
         return serviceResponse;
     }
 
-    public Task<ServiceResponse<List<ItemModel>>> GetItemByPatrimonio(int patrimonio)
+    //implementação do get Item por patrimonio
+     public async Task<ServiceResponse<ItemModel>> GetItemByPatrimonio(int patrimonio)
     {
-        throw new NotImplementedException();
+        ServiceResponse<ItemModel> serviceResponse = new ServiceResponse<ItemModel>();
+
+        try
+        {
+            ItemModel item = _context.Items.FirstOrDefault(x=>x.Patrimonio == patrimonio);
+
+            if (item == null)
+            {
+                serviceResponse.Dados = null;
+                serviceResponse.Mensagem = "Nenhum item encontrado";
+                serviceResponse.Sucesso = false;
+                
+                return serviceResponse;
+            }
+
+            serviceResponse.Dados = item;
+        }
+        catch (Exception e)
+        {
+          serviceResponse.Mensagem = e.Message;
+          serviceResponse.Sucesso = false;
+        }
+        
+        return serviceResponse;
+    }
+     
+    //implementação do update  Item 
+    public async Task<ServiceResponse<List<ItemModel>>> UpdateItem(ItemModel itemEditado)
+    {
+        ServiceResponse<List<ItemModel>> serviceResponse = new ServiceResponse<List<ItemModel>>();
+
+        try
+        {
+            ItemModel item = _context.Items.AsNoTracking().FirstOrDefault(x => x.Patrimonio == itemEditado.Patrimonio);
+            if (item == null)
+            {
+                serviceResponse.Dados = null;
+                serviceResponse.Mensagem = "Nenhum item encontrado";
+                serviceResponse.Sucesso = false;
+            }
+            _context.Items.Update(itemEditado);
+            await _context.SaveChangesAsync();
+
+            serviceResponse.Dados = _context.Items.ToList();
+        }
+        catch (Exception e)
+        {
+            serviceResponse.Mensagem = e.Message;
+            serviceResponse.Sucesso = false;
+        }
+
+        return serviceResponse;
     }
 
-    public Task<ServiceResponse<List<ItemModel>>> UpdateItem(ItemModel item)
+    //implementação do delete Item 
+    public async Task<ServiceResponse<List<ItemModel>>> DeleteItem(int patrimonio)
     {
-        throw new NotImplementedException();
+        ServiceResponse<List<ItemModel>> serviceResponse = new ServiceResponse<List<ItemModel>>();
+
+        try
+        {
+            ItemModel item = _context.Items.FirstOrDefault(x => x.Patrimonio == patrimonio);
+            if (item == null)
+            {
+                serviceResponse.Dados = null;
+                serviceResponse.Mensagem = "Nenhum item encontrado";    
+                serviceResponse.Sucesso = false;
+            }
+            _context.Items.Remove(item);
+            await _context.SaveChangesAsync();
+            
+            serviceResponse.Dados = _context.Items.ToList();
+        }
+        catch (Exception e)
+        {
+            serviceResponse.Mensagem = e.Message;
+            serviceResponse.Sucesso = false;
+        }
+        
+        return serviceResponse;
     }
 
-    public Task<ServiceResponse<List<ItemModel>>> DeleteItem(int patrimonio)
+    //implementaçao do inativa item
+    public async Task<ServiceResponse<List<ItemModel>>> InativaItem(int patrimonio)
     {
-        throw new NotImplementedException();
-    }
+        ServiceResponse<List<ItemModel>> serviceResponse = new ServiceResponse<List<ItemModel>>();
 
-    public Task<ServiceResponse<List<ItemModel>>> InativaItem(int patrimonio)
-    {
-        throw new NotImplementedException();
+        try
+        {
+            ItemModel item = _context.Items.FirstOrDefault(x => x.Patrimonio == patrimonio);
+
+            if (item ==null)
+            {   
+                serviceResponse.Dados = null;
+                serviceResponse.Mensagem = "Nenhum item encontrado";
+                serviceResponse.Sucesso = false;
+            }
+
+            item.Ativo = false;
+            _context.Items.Update(item);
+            await _context.SaveChangesAsync();
+            
+            serviceResponse.Dados = _context.Items.ToList();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        return serviceResponse;
+
     }
 }
