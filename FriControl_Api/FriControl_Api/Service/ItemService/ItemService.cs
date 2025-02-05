@@ -1,4 +1,5 @@
 ﻿using FriControl_Api.Data;
+using FriControl_Api.DTO.Item;
 using FriControl_Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,18 +36,31 @@ public class ItemService : IItemInterface
     }
 
     //implementação do create Item
-    public async Task<ServiceResponse<List<ItemModel>>> CreateItem(ItemModel item)
+    public async Task<ServiceResponse<List<ItemModel>>> CreateItem(CreateItemDto itemDto)
     {
         ServiceResponse<List<ItemModel>> serviceResponse = new ServiceResponse<List<ItemModel>>();
 
         try
         {
-            if (item == null)
+            var categoria = _context.Categorias.FirstOrDefault(x => x.Id == itemDto.CategoriaId);
+
+            if (categoria == null)
             {
-                serviceResponse.Dados = null;
-                serviceResponse.Mensagem = "As informações do item estão vazias";
-                serviceResponse.Sucesso = false;
+                serviceResponse.Mensagem = "Nenhuma categoria encontrada";
             }
+
+            var item = new ItemModel
+            {
+                Patrimonio = itemDto.Patrimonio,
+                NomeItem = itemDto.NomeItem,
+                MarcaItem = itemDto.MarcaItem,
+                ConservacaoItem = itemDto.ConservacaoItem,
+                ValorItem = itemDto.ValorItem,
+                Ativo = itemDto.Ativo,
+                Categoria = categoria,
+                DataDeAlteracao = itemDto.DataDeAlteracao,
+                DataDeCriacao = itemDto.DataDeCriacao
+            };
             
             _context.Items.Add(item);
             await _context.SaveChangesAsync();

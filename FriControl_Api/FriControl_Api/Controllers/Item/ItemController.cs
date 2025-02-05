@@ -1,4 +1,5 @@
-﻿using FriControl_Api.Models;
+﻿using FriControl_Api.DTO.Item;
+using FriControl_Api.Models;
 using FriControl_Api.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,9 @@ public class ItemController : ControllerBase
     
     //cria novo item
     [HttpPost]
-    public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> CreateItem(ItemModel item)
+    public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> CreateItem(CreateItemDto itemDto)
     {
-        return Ok(await _itemInterface.CreateItem(item));
+        return Ok(await _itemInterface.CreateItem(itemDto));
     }
     
     //retorna lista de item
