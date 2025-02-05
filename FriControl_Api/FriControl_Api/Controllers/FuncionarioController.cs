@@ -48,7 +48,7 @@ public class FuncionarioController : ControllerBase
         return Ok(serviceResponse);
     }
     
-    //deleta item por id
+    //deleta funcionario por id
     [HttpDelete]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> DeleteFuncionario(int id)
     {

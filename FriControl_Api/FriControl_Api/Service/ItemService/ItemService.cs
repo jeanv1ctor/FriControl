@@ -19,11 +19,11 @@ public class ItemService : IItemInterface
 
         try
         {
-            serviceResponse.Dados = _context.Items.ToList();
             if (serviceResponse.Dados == null)
             {
                 serviceResponse.Mensagem = "Nenhum item encontrado";
             }
+            serviceResponse.Dados = _context.Items.ToList();
         }
         catch (Exception e)
         {
@@ -44,11 +44,10 @@ public class ItemService : IItemInterface
             if (item == null)
             {
                 serviceResponse.Dados = null;
-                serviceResponse.Mensagem = "informar dados do item";
+                serviceResponse.Mensagem = "As informações do item estão vazias";
                 serviceResponse.Sucesso = false;
-                
-                return serviceResponse;
             }
+            
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
             serviceResponse.Dados = _context.Items.ToList();
@@ -74,7 +73,7 @@ public class ItemService : IItemInterface
             if (item == null)
             {
                 serviceResponse.Dados = null;
-                serviceResponse.Mensagem = "Nenhum item encontrado";
+                serviceResponse.Mensagem = "Nenhum item com esse registro encontrado";
                 serviceResponse.Sucesso = false;
                 
                 return serviceResponse;
@@ -102,7 +101,7 @@ public class ItemService : IItemInterface
             if (item == null)
             {
                 serviceResponse.Dados = null;
-                serviceResponse.Mensagem = "Nenhum item encontrado";
+                serviceResponse.Mensagem = "Nenhum item com esse registro encontrado";
                 serviceResponse.Sucesso = false;
             }
             _context.Items.Update(itemEditado);
@@ -130,7 +129,7 @@ public class ItemService : IItemInterface
             if (item == null)
             {
                 serviceResponse.Dados = null;
-                serviceResponse.Mensagem = "Nenhum item encontrado";    
+                serviceResponse.Mensagem = "Nenhum item com esse registro encontrado";    
                 serviceResponse.Sucesso = false;
             }
             _context.Items.Remove(item);
@@ -159,7 +158,7 @@ public class ItemService : IItemInterface
             if (item ==null)
             {   
                 serviceResponse.Dados = null;
-                serviceResponse.Mensagem = "Nenhum item encontrado";
+                serviceResponse.Mensagem = "Nenhum item com esse registro encontrado";
                 serviceResponse.Sucesso = false;
             }
 
@@ -171,8 +170,10 @@ public class ItemService : IItemInterface
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            serviceResponse.Dados = null;
+            serviceResponse.Mensagem = e.Message;
+            serviceResponse.Sucesso = false;
+            
         }
         return serviceResponse;
 

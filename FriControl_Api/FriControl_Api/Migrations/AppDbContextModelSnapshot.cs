@@ -31,10 +31,10 @@ namespace FriControl_Api.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataDeAlteracao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataDeCriacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("NomeCategoria")
                         .IsRequired()
@@ -69,10 +69,10 @@ namespace FriControl_Api.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DataDeAlteracao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataDeCriacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -127,10 +127,10 @@ namespace FriControl_Api.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DataDeAlteracao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataDeCriacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -180,18 +180,15 @@ namespace FriControl_Api.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DataDeAlteracao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataDeCriacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("DescricaoItem")
                         .HasColumnType("text");
 
                     b.Property<int>("FornecedorId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("FornecedorModelId")
                         .HasColumnType("integer");
 
                     b.Property<int>("FuncionarioId")
@@ -212,7 +209,7 @@ namespace FriControl_Api.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.HasIndex("FornecedorModelId");
+                    b.HasIndex("FornecedorId");
 
                     b.HasIndex("FuncionarioId");
 
@@ -228,10 +225,10 @@ namespace FriControl_Api.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataDeAlteracao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataDeCriacao")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("NomeSetor")
                         .IsRequired()
@@ -274,9 +271,11 @@ namespace FriControl_Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FriControl_Api.Models.Fornecedor.FornecedorModel", "FornecedorModel")
+                    b.HasOne("FriControl_Api.Models.Fornecedor.FornecedorModel", "Fornecedor")
                         .WithMany("Items")
-                        .HasForeignKey("FornecedorModelId");
+                        .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FriControl_Api.Models.FuncionarioModel", "Funcionario")
                         .WithMany("Items")
@@ -286,7 +285,7 @@ namespace FriControl_Api.Migrations
 
                     b.Navigation("Categoria");
 
-                    b.Navigation("FornecedorModel");
+                    b.Navigation("Fornecedor");
 
                     b.Navigation("Funcionario");
                 });

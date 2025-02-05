@@ -28,6 +28,7 @@ public class ItemController : ControllerBase
     {
         return Ok(await _itemInterface.GetItem());
     }
+    
     //retorna item especifico por patrimonio 
     [HttpGet("{patrimonio}")]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> GetItemByPatrimonio(int patrimonio)
@@ -43,6 +44,7 @@ public class ItemController : ControllerBase
         return Ok(serviceResponse);
     }
     
+    //deleta item por patrimonio
     [HttpDelete]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> DeleteItem(int patrimonio)
     {

@@ -18,9 +18,10 @@ public class ItemModel
     public int FuncionarioId { get; set; }
     public int FornecedorId { get; set; }
     
-    public FornecedorModel ? FornecedorModel { get; set; }
-    public FuncionarioModel? Funcionario { get; set; }
-    public CategoriaItemModel? Categoria { get; set; }
+    public FornecedorModel ? Fornecedor { get; set; }
+    public FuncionarioModel? Funcionario { get; set; } 
+
+    public CategoriaItemModel Categoria { get; set; }
     
     public DateTime DataDeCriacao { get; set; } = DateTime.Now;
     public DateTime DataDeAlteracao { get; set; } = DateTime.Now;

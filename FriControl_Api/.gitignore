@@ -456,3 +456,4 @@ $RECYCLE.BIN/
 /FriControl_Api/FriControl_Api/Migrations/*
 /FriControl_Api/FriControl_Api/appsettings.json
 /FriControl_Api/FriControl_Api/appsettings.Development.json
+/FriControl_Api/Migrations/
