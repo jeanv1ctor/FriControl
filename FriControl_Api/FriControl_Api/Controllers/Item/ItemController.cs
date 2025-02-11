@@ -39,9 +39,9 @@ public class ItemController : ControllerBase
     
     //atualiza item especifico por patrimonio 
     [HttpPut]
-    public async Task<ActionResult<ServiceResponse<ItemModel>>> UpdateItem(ItemModel itemEditado)
+    public async Task<ActionResult<ServiceResponse<ItemModel>>> UpdateItem(UpdateItemDto itemEditadoDto)
     {
-        ServiceResponse<List<ItemModel>> serviceResponse = await _itemInterface.UpdateItem(itemEditado);
+        ServiceResponse<List<ItemModel>> serviceResponse = await _itemInterface.UpdateItem(itemEditadoDto);
         return Ok(serviceResponse);
     }
     

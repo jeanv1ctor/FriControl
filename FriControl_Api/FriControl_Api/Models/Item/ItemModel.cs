@@ -12,13 +12,13 @@ public class ItemModel
     public string? DescricaoItem { get; set; }
     public string MarcaItem { get; set; }
     public ItemEnum ConservacaoItem { get; set; }
-    public decimal? ValorItem { get; set; }
+    public decimal ValorItem { get; set; }
     public bool Ativo { get; set; }
     public int CategoriaId { get; set; }
-    public int FuncionarioId { get; set; }
-    public int FornecedorId { get; set; }
+    public int? FuncionarioId { get; set; }
+    //public int? FornecedorId { get; set; }
     
-    public FornecedorModel ? Fornecedor { get; set; }
+    //public FornecedorModel  Fornecedor { get; set; }
     public FuncionarioModel? Funcionario { get; set; } 
 
     public CategoriaItemModel Categoria { get; set; }

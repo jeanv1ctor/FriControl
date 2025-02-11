@@ -46,7 +46,7 @@ public class ItemService : IItemInterface
 
             if (categoria == null)
             {
-                serviceResponse.Mensagem = "Nenhuma categoria encontrada";
+                serviceResponse.Mensagem = "Nenhuma categoria encontrada para cadastrar o item";
             }
 
             var item = new ItemModel
@@ -54,6 +54,7 @@ public class ItemService : IItemInterface
                 Patrimonio = itemDto.Patrimonio,
                 NomeItem = itemDto.NomeItem,
                 MarcaItem = itemDto.MarcaItem,
+                DescricaoItem = itemDto.DescricaoItem,
                 ConservacaoItem = itemDto.ConservacaoItem,
                 ValorItem = itemDto.ValorItem,
                 Ativo = itemDto.Ativo,
@@ -105,30 +106,45 @@ public class ItemService : IItemInterface
     }
      
     //implementação do update  Item 
-    public async Task<ServiceResponse<List<ItemModel>>> UpdateItem(ItemModel itemEditado)
+    public async Task<ServiceResponse<List<ItemModel>>> UpdateItem(UpdateItemDto itemEditadoDto)
     {
         ServiceResponse<List<ItemModel>> serviceResponse = new ServiceResponse<List<ItemModel>>();
 
         try
         {
-            ItemModel item = _context.Items.AsNoTracking().FirstOrDefault(x => x.Patrimonio == itemEditado.Patrimonio);
+            var item = await _context.Items.FirstOrDefaultAsync(x => x.Patrimonio == itemEditadoDto.Patrimonio);
+            //var categoria =  _context.Categorias.FirstOrDefault(x => x.Id == itemEditadoDto.CategoriaId);
+
             if (item == null)
             {
                 serviceResponse.Dados = null;
-                serviceResponse.Mensagem = "Nenhum item com esse registro encontrado";
-                serviceResponse.Sucesso = false;
+                serviceResponse.Mensagem = "Nenhum item com esse registro encontrado";    
+                serviceResponse.Sucesso = false;           
             }
-            _context.Items.Update(itemEditado);
+            
+            item.Patrimonio = itemEditadoDto.Patrimonio;
+            item.NomeItem = itemEditadoDto.NomeItem;
+            item.MarcaItem = itemEditadoDto.MarcaItem;
+            item.ConservacaoItem = itemEditadoDto.ConservacaoItem;
+            item.ValorItem = itemEditadoDto.ValorItem;
+            item.Ativo = itemEditadoDto.Ativo;
+            item.DataDeAlteracao = DateTime.Now;
+            item.CategoriaId = itemEditadoDto.CategoriaId;
+            item.FuncionarioId = itemEditadoDto.FuncionarioId;
+            
+            
+            _context.Items.Update(item);
             await _context.SaveChangesAsync();
-
+            
             serviceResponse.Dados = _context.Items.ToList();
+            
         }
         catch (Exception e)
         {
             serviceResponse.Mensagem = e.Message;
             serviceResponse.Sucesso = false;
         }
-
+        
         return serviceResponse;
     }
 

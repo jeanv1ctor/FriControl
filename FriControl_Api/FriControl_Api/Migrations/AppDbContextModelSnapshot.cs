@@ -188,10 +188,10 @@ namespace FriControl_Api.Migrations
                     b.Property<string>("DescricaoItem")
                         .HasColumnType("text");
 
-                    b.Property<int>("FornecedorId")
+                    b.Property<int?>("FornecedorModelId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("FuncionarioId")
+                    b.Property<int?>("FuncionarioId")
                         .HasColumnType("integer");
 
                     b.Property<string>("MarcaItem")
@@ -202,14 +202,14 @@ namespace FriControl_Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal?>("ValorItem")
+                    b.Property<decimal>("ValorItem")
                         .HasColumnType("numeric");
 
                     b.HasKey("Patrimonio");
 
                     b.HasIndex("CategoriaId");
 
-                    b.HasIndex("FornecedorId");
+                    b.HasIndex("FornecedorModelId");
 
                     b.HasIndex("FuncionarioId");
 
@@ -271,21 +271,15 @@ namespace FriControl_Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FriControl_Api.Models.Fornecedor.FornecedorModel", "Fornecedor")
+                    b.HasOne("FriControl_Api.Models.Fornecedor.FornecedorModel", null)
                         .WithMany("Items")
-                        .HasForeignKey("FornecedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FornecedorModelId");
 
                     b.HasOne("FriControl_Api.Models.FuncionarioModel", "Funcionario")
                         .WithMany("Items")
-                        .HasForeignKey("FuncionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FuncionarioId");
 
                     b.Navigation("Categoria");
-
-                    b.Navigation("Fornecedor");
 
                     b.Navigation("Funcionario");
                 });
