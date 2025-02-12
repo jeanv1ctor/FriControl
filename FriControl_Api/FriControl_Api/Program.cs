@@ -2,6 +2,7 @@ using FriControl_Api.Data;
 using FriControl_Api.Service;
 using FriControl_Api.Service.CategoriaItemService;
 using FriControl_Api.Service.FuncionarioService;
+using FriControl_Api.Service.SetorFuncionarioService;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IItemInterface, ItemService>();
 builder.Services.AddScoped<IFuncionarioInterface, FuncionarioService>();
 builder.Services.AddScoped<ICategoriaItemInterface, CategoriaItemService>();
+builder.Services.AddScoped<ISetorFuncionarioInterface, SetorFuncionarioService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));

@@ -18,7 +18,7 @@ public class FuncionarioModel
     public int SetorId { get; set; }
     public bool Ativo { get; set; }
     public List<ItemModel>? Items { get; set; }
-    public SetorFuncionario Setor { get; set; }
+    public SetorFuncionarioModel Setor { get; set; }
     public DateTime DataDeCriacao { get; set; } = DateTime.Now;
     public DateTime DataDeAlteracao { get; set; } = DateTime.Now;
     

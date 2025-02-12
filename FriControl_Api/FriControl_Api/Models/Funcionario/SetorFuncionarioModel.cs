@@ -2,7 +2,7 @@
 
 namespace FriControl_Api.Models;
 
-public class SetorFuncionario
+public class SetorFuncionarioModel
 {
     [Key]
     public int Id { get; set; }

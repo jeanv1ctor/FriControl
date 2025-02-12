@@ -12,7 +12,7 @@ public class AppDbContext : DbContext
     }
     
     public DbSet<FuncionarioModel> Funcionarios { get; set; }
-    public DbSet<SetorFuncionario> SetorFuncionarios { get; set; }    
+    public DbSet<SetorFuncionarioModel> SetorFuncionarios { get; set; }    
     public DbSet<ItemModel> Items { get; set; }
     public DbSet<CategoriaItemModel> Categorias { get; set; }
     public DbSet<UsuarioModel> Usuarios { get; set; }
