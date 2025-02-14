@@ -15,14 +15,12 @@ public class ItemModel
     public decimal ValorItem { get; set; }
     public bool Ativo { get; set; }
     public int CategoriaId { get; set; }
-    public int? FuncionarioId { get; set; }
-    //public int? FornecedorId { get; set; }
-    
-    //public FornecedorModel  Fornecedor { get; set; }
-    public FuncionarioModel? Funcionario { get; set; } 
-
     public CategoriaItemModel Categoria { get; set; }
+    public int? FuncionarioId { get; set; }
+    public FuncionarioModel Funcionario { get; set; } 
     
+    public int? FornecedorId { get; set; }
+    public FornecedorModel?  Fornecedor { get; set; }
     public DateTime DataDeCriacao { get; set; } = DateTime.Now;
     public DateTime DataDeAlteracao { get; set; } = DateTime.Now;
 }

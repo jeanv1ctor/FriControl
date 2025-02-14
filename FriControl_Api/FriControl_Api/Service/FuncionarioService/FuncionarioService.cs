@@ -1,4 +1,5 @@
 ﻿using FriControl_Api.Data;
+using FriControl_Api.DTO.Funcionario;
 using FriControl_Api.Models;
 
 namespace FriControl_Api.Service.FuncionarioService;
@@ -58,18 +59,35 @@ public class FuncionarioService : IFuncionarioInterface
     }
 
     //implementação do Create Funcionario
-    public async Task<ServiceResponse<List<FuncionarioModel>>> CreateFuncionario(FuncionarioModel funcionario)
+    public async Task<ServiceResponse<List<FuncionarioModel>>> CreateFuncionario(CreateFuncionarioDto funcionarioDto)
     {
         ServiceResponse<List<FuncionarioModel>> serviceResponse = new ServiceResponse<List<FuncionarioModel>>();
 
         try
         {
-            if (funcionario == null)
+            var setor = _context.SetorFuncionarios.FirstOrDefault(x => x.Id == funcionarioDto.SetorId);
+            if (setor == null)
             {
                 serviceResponse.Dados = null;
-                serviceResponse.Mensagem = "Nenhum funcionario com esse registro encontrado";
+                serviceResponse.Mensagem = "Nenhum setor encontrado";
                 serviceResponse.Sucesso = false;
             }
+
+            var funcionario = new FuncionarioModel
+            {
+                Nome = funcionarioDto.Nome,
+                Sobrenome = funcionarioDto.Sobrenome,
+                Cpf = funcionarioDto.Cpf,
+                Email = funcionarioDto.Email,
+                Endereco = funcionarioDto.Endereco,
+                Cidade = funcionarioDto.Cidade,
+                Bairro = funcionarioDto.Bairro,
+                Uf = funcionarioDto.Uf,
+                Setor = setor,
+                DataDeAlteracao = funcionarioDto.DataDeAlteracao,
+                DataDeCriacao = funcionarioDto.DataDeCriacao
+            };
+                
             _context.Funcionarios.Add(funcionario);
             await _context.SaveChangesAsync();
             serviceResponse.Dados = _context.Funcionarios.ToList();
@@ -85,20 +103,32 @@ public class FuncionarioService : IFuncionarioInterface
     }
 
     //implementação do update funcionario
-    public async Task<ServiceResponse<List<FuncionarioModel>>> UpdateFuncionario(FuncionarioModel funcionarioEditado)
+    public async Task<ServiceResponse<List<FuncionarioModel>>> UpdateFuncionario(UpdateFuncionarioDto funcionarioEditadoDto)
     {
         ServiceResponse<List<FuncionarioModel>> serviceResponse = new ServiceResponse<List<FuncionarioModel>>();
 
         try
         {
-            FuncionarioModel funcionario = _context.Funcionarios.FirstOrDefault(f => f.Id == funcionarioEditado.Id);
+            FuncionarioModel funcionario = _context.Funcionarios.FirstOrDefault(f => f.Id == funcionarioEditadoDto.Id);
             if (funcionario == null)
             {
                 serviceResponse.Dados = null;
                 serviceResponse.Mensagem = "Nenhum funcionario com esse registro encontrado";
                 serviceResponse.Sucesso = false;
             }
-            funcionario = funcionarioEditado;
+
+            funcionario.Nome = funcionarioEditadoDto.Nome;
+            funcionario.Sobrenome = funcionarioEditadoDto.Sobrenome;
+            funcionario.Cpf = funcionarioEditadoDto.Cpf;
+            funcionario.Email = funcionarioEditadoDto.Email;
+            funcionario.Endereco = funcionarioEditadoDto.Endereco;
+            funcionario.Cidade = funcionarioEditadoDto.Cidade;
+            funcionario.Bairro = funcionarioEditadoDto.Bairro;
+            funcionario.Uf = funcionarioEditadoDto.Uf;
+            funcionario.DataDeAlteracao = funcionarioEditadoDto.DataDeAlteracao;
+            funcionario.DataDeCriacao = funcionarioEditadoDto.DataDeCriacao;
+            funcionario.SetorId = funcionarioEditadoDto.SetorId;
+
             await _context.SaveChangesAsync();
             serviceResponse.Dados = _context.Funcionarios.ToList();
         }

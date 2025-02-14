@@ -16,7 +16,7 @@ public class FornecedorModel
     public string Uf { get; set; }
     public string Cnpj { get; set; }
     public bool Ativo { get; set; }
-    public List<ItemModel>? Items { get; set; }
+    public ICollection<ItemModel>? Items { get; set; }
     public DateTime DataDeCriacao { get; set; } = DateTime.Now;
     public DateTime DataDeAlteracao { get; set; } = DateTime.Now;
 }

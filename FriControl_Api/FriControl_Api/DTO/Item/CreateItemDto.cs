@@ -14,8 +14,8 @@ public class CreateItemDto
     public decimal ValorItem { get; set; }
     public bool Ativo { get; set; }
     public int CategoriaId { get; set; }
-    public int FuncionarioId { get; set; }
-    public int FornecedorId { get; set; }
+    public int? FuncionarioId { get; set; }
+    public int? FornecedorId { get; set; }
     
     public CategoriaVinculoDto Categoria { get; set; }
     

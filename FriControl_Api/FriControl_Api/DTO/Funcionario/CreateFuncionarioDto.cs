@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FriControl_Api.DTO.SetorFuncionario;
 
+namespace FriControl_Api.DTO.Funcionario;
 
-namespace FriControl_Api.Models;
-
-public class FuncionarioModel
+public class CreateFuncionarioDto
 {
-    [Key]
-    public int Id { get; set; }
+
     public string Nome { get; set; }
     public string Sobrenome { get; set; }
     public string Cpf { get; set; }
@@ -15,13 +13,10 @@ public class FuncionarioModel
     public string Cidade { get; set; }
     public string Bairro { get; set; }
     public string Uf { get; set; }
-    
     public int SetorId { get; set; }
-    public SetorFuncionarioModel Setor { get; set; }
+    public SetorVinculoDto Setor { get; set; }
     public bool Ativo { get; set; }
-    public List<ItemModel>? Items { get; set; }
 
     public DateTime DataDeCriacao { get; set; } = DateTime.Now;
     public DateTime DataDeAlteracao { get; set; } = DateTime.Now;
-    
 }

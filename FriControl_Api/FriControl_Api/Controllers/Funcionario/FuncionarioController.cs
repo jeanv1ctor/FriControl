@@ -1,5 +1,6 @@
 
 
+using FriControl_Api.DTO.Funcionario;
 using FriControl_Api.Models;
 using FriControl_Api.Service.FuncionarioService;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,9 @@ public class FuncionarioController : ControllerBase
     //cria novo funcionario
 
     [HttpPost]
-    public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> CreateFuncionario(FuncionarioModel funcionario)
+    public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> CreateFuncionario(CreateFuncionarioDto funcionarioDto)
     {
-        return Ok(await _funcionarioInterface.CreateFuncionario(funcionario));
+        return Ok(await _funcionarioInterface.CreateFuncionario(funcionarioDto));
     }
     
     //retorna lista de funcionarios
@@ -42,9 +43,9 @@ public class FuncionarioController : ControllerBase
     //atualiza funcionario especifico por id
 
     [HttpPut]
-    public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> UpdateFuncionario(FuncionarioModel funcionarioEditado)
+    public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> UpdateFuncionario(UpdateFuncionarioDto funcionarioDto)
     {
-        ServiceResponse<List<FuncionarioModel>> serviceResponse = await _funcionarioInterface.UpdateFuncionario(funcionarioEditado);
+        ServiceResponse<List<FuncionarioModel>> serviceResponse = await _funcionarioInterface.UpdateFuncionario(funcionarioDto);
         return Ok(serviceResponse);
     }
     
