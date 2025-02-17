@@ -128,6 +128,7 @@ public class FuncionarioService : IFuncionarioInterface
             funcionario.DataDeAlteracao = funcionarioEditadoDto.DataDeAlteracao;
             funcionario.DataDeCriacao = funcionarioEditadoDto.DataDeCriacao;
             funcionario.SetorId = funcionarioEditadoDto.SetorId;
+            funcionario.Ativo = funcionarioEditadoDto.Ativo;
 
             await _context.SaveChangesAsync();
             serviceResponse.Dados = _context.Funcionarios.ToList();
