@@ -77,6 +77,7 @@ public class FornecedorService : IFornecedorInterface
                 NomeEmpresa = fornecedorDto.NomeEmpresa,
                 Cnpj =  fornecedorDto.Cnpj,
                 Endereco = fornecedorDto.Endereco,
+                Observacao = fornecedorDto.Observacao,
                 Bairro = fornecedorDto.Bairro,
                 Cidade = fornecedorDto.Cidade,
                 Uf = fornecedorDto.Uf,
@@ -119,6 +120,7 @@ public class FornecedorService : IFornecedorInterface
             fornecedor.NomeEmpresa = fornecedorDto.NomeEmpresa;
             fornecedor.Cnpj = fornecedorDto.Cnpj;
             fornecedor.Endereco = fornecedorDto.Endereco;
+            fornecedor.Observacao = fornecedorDto.Observacao;
             fornecedor.Bairro = fornecedorDto.Bairro;
             fornecedor.Cidade = fornecedorDto.Cidade;
             fornecedor.Uf = fornecedorDto.Uf;

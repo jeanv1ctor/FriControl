@@ -43,6 +43,7 @@ public class ItemService : IItemInterface
         try
         {
             var categoria = _context.Categorias.FirstOrDefault(x => x.Id == itemDto.CategoriaId);
+            var fornecedor = _context.Fornecedores.FirstOrDefault(x => x.Id == itemDto.FornecedorId);
 
             if (categoria == null)
             {
@@ -59,6 +60,7 @@ public class ItemService : IItemInterface
                 ValorItem = itemDto.ValorItem,
                 Ativo = itemDto.Ativo,
                 Categoria = categoria,
+                Fornecedor = fornecedor,
                 DataDeAlteracao = itemDto.DataDeAlteracao,
                 DataDeCriacao = itemDto.DataDeCriacao
             };
@@ -203,7 +205,6 @@ public class ItemService : IItemInterface
             serviceResponse.Dados = null;
             serviceResponse.Mensagem = e.Message;
             serviceResponse.Sucesso = false;
-            
         }
         return serviceResponse;
 

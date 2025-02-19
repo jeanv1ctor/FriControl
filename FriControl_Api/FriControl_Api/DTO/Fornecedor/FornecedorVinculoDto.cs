@@ -1,6 +1,6 @@
 ﻿namespace FriControl_Api.DTO.Fornecedor;
 
-public class CreateFornecedorDto
+public class FornecedorVinculoDto
 {
     public string NomeEmpresa { get; set; }
     public string Endereco { get; set; }

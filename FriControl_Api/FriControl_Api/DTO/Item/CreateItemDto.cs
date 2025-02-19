@@ -1,4 +1,5 @@
-﻿using FriControl_Api.Enum;
+﻿using FriControl_Api.DTO.Fornecedor;
+using FriControl_Api.Enum;
 using FriControl_Api.Models;
 using FriControl_Api.Models.Fornecedor;
 
@@ -18,6 +19,7 @@ public class CreateItemDto
     public int? FornecedorId { get; set; }
     
     public CategoriaVinculoDto Categoria { get; set; }
+    public FornecedorVinculoDto fornecedor { get; set; }
     
     public DateTime DataDeCriacao { get; set; } = DateTime.Now;
     public DateTime DataDeAlteracao { get; set; } = DateTime.Now;
