@@ -209,4 +209,35 @@ public class ItemService : IItemInterface
         return serviceResponse;
 
     }
+
+    public async Task<ServiceResponse<List<ItemModel>>> TransfereItem(int patrimonio, int idFuncionario)
+    {
+        ServiceResponse<List<ItemModel>> serviceResponse = new ServiceResponse<List<ItemModel>>();
+        
+        try
+        {
+            ItemModel item = _context.Items.FirstOrDefault(x => x.Patrimonio == patrimonio);
+            var funcionario = _context.Funcionarios.FirstOrDefault(x => x.Id == idFuncionario);
+
+            if (item ==null)
+            {   
+                serviceResponse.Dados = null;
+                serviceResponse.Mensagem = "Nenhum item com esse registro encontrado";
+                serviceResponse.Sucesso = false;
+            }
+
+            item.FuncionarioId = funcionario.Id;
+            _context.Items.Update(item);
+            await _context.SaveChangesAsync();
+            
+            serviceResponse.Dados = _context.Items.ToList();
+        }
+        catch (Exception e)
+        {
+            serviceResponse.Dados = null;
+            serviceResponse.Mensagem = e.Message;
+            serviceResponse.Sucesso = false;
+        }
+        return serviceResponse;
+    }
 }

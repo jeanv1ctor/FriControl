@@ -11,4 +11,5 @@ public interface IItemInterface
     Task<ServiceResponse<List<ItemModel>>> UpdateItem(UpdateItemDto itemEditadoDto);
     Task<ServiceResponse<List<ItemModel>>> DeleteItem(int patrimonio);
     Task<ServiceResponse<List<ItemModel>>> InativaItem(int patrimonio);
+    Task<ServiceResponse<List<ItemModel>>> TransfereItem(int patrimonio, int funcionarioId);
 }

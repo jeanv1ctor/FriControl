@@ -54,12 +54,21 @@ public class ItemController : ControllerBase
     }
     
     //inativa item especifico por patrimonio 
-    [HttpPut("inativa item")]
+    [HttpPut("inativa_item")]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> InativaItem(int patrimonio)
     {
         ServiceResponse<List<ItemModel>> serviceResponse = await _itemInterface.InativaItem(patrimonio);
         return Ok(serviceResponse);
     }
     
+    //transfere item para outro funcionário
+
+    [HttpPut("transfere_item")]
+    public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> TransfereItem(int patrimonio, int funcionarioId)
+    {
+        ServiceResponse<List<ItemModel>> serviceResponse = await _itemInterface.TransfereItem(patrimonio, funcionarioId);
+        
+        return Ok(serviceResponse);
+    }
 
 }
