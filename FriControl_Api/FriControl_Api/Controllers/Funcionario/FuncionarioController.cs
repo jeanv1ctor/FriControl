@@ -23,21 +23,38 @@ public class FuncionarioController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> CreateFuncionario(CreateFuncionarioDto funcionarioDto)
     {
-        return Ok(await _funcionarioInterface.CreateFuncionario(funcionarioDto));
+        var result = await _funcionarioInterface.CreateFuncionario(funcionarioDto);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        
+        return Ok(result);
     }
     
     //retorna lista de funcionarios
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> GetFuncionario()
     {
-        return Ok(await _funcionarioInterface.GetFuncionario());
+        var result = await _funcionarioInterface.GetFuncionario();
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        
+        return Ok(result);
     }
     
     //retorna funcionario especifico por id
     [HttpGet("{id}")]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> GetFuncionarioById(int id)
     {
-        return Ok(await _funcionarioInterface.GetFuncionarioById(id));
+        var result = await _funcionarioInterface.GetFuncionarioById(id);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //atualiza funcionario especifico por id
@@ -45,23 +62,35 @@ public class FuncionarioController : ControllerBase
     [HttpPut]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> UpdateFuncionario(UpdateFuncionarioDto funcionarioDto)
     {
-        ServiceResponse<List<FuncionarioModel>> serviceResponse = await _funcionarioInterface.UpdateFuncionario(funcionarioDto);
-        return Ok(serviceResponse);
+        var result = await _funcionarioInterface.UpdateFuncionario(funcionarioDto);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //deleta funcionario por id
     [HttpDelete]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> DeleteFuncionario(int id)
     {
-        ServiceResponse<List<FuncionarioModel>> serviceResponse = await _funcionarioInterface.DeleteFuncionario(id);
-        return Ok(serviceResponse);
+        var result = await _funcionarioInterface.DeleteFuncionario(id);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //inativa funcionario especifico por id 
     [HttpPut("inativa funcionario")]
     public async Task<ActionResult<ServiceResponse<FuncionarioModel>>> InativaFuncionario(int id)
     {
-        ServiceResponse<List<FuncionarioModel>> serviceResponse = await _funcionarioInterface.InativaFuncionario(id);
-        return Ok(serviceResponse);
+        var result = await _funcionarioInterface.InativaFuncionario(id);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
 }

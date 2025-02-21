@@ -27,29 +27,50 @@ public class CategoriaItemController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetCategoria()
     {
-        return Ok(await _categoriaItemInterface.GetCategoria());
+        var result = await _categoriaItemInterface.GetCategoria();
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        
+        return Ok(result);
     }
     
     //retorna categoria especifica por id 
     [HttpGet("{id}")]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> GetCategoriaById(int id)
     {
-        return Ok(await _categoriaItemInterface.GetCategoriaById(id));
+        var result = await _categoriaItemInterface.GetCategoriaById(id);
+        
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //atualiza categoria especifica por id 
     [HttpPut]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> UpdateItem(UpdateCategoriaDto categoriaEditado)
     {
-        ServiceResponse<List<CategoriaItemModel>> serviceResponse = await _categoriaItemInterface.UpdateCategoria(categoriaEditado);
-        return Ok(serviceResponse);
+        var result = await _categoriaItemInterface.UpdateCategoria(categoriaEditado);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //deleta categoria por id
     [HttpDelete]
     public async Task<ActionResult<ServiceResponse<CategoriaItemModel>>> DeleteCategoria(int id)
     {
-        ServiceResponse<List<CategoriaItemModel>> serviceResponse = await _categoriaItemInterface.DeteleCategoria(id);
-        return Ok(serviceResponse);
+        var result = await _categoriaItemInterface.DeteleCategoria(id);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+
+        return Ok(result);
     }
 }

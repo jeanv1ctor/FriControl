@@ -22,35 +22,58 @@ public class FornecedorController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<List<FornecedorModel>>>> CreateFornecedor(CreateFornecedorDto fornecedorDto)
     {
-        return Ok(await _fornecedorInterface.CreateFornecedor(fornecedorDto));
+        var result = await _fornecedorInterface.CreateFornecedor(fornecedorDto);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     //retorna lista de fornecedor
 
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<FornecedorModel>>>> GetFornecedor()
     {
-        return Ok(await _fornecedorInterface.GetFornecedor());
+        var result = await _fornecedorInterface.GetFornecedor();
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //retorna fornecedor especifico por id 
     [HttpGet("{id}")]
     public async Task<ActionResult<ServiceResponse<FornecedorModel>>> GetItemByPatrimonio(int id)
     {
-        return Ok(await _fornecedorInterface.GetFornecedorById(id));
+        var result = await _fornecedorInterface.GetFornecedorById(id);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     //atualiza fornecedor especifico por id 
     [HttpPut]
     public async Task<ActionResult<ServiceResponse<FornecedorModel>>> UpdateItem(UpdateFornecedorDto fornecedorDto)
     {
-        ServiceResponse<List<FornecedorModel>> serviceResponse = await _fornecedorInterface.UpdateFornecedor(fornecedorDto);
-        return Ok(serviceResponse);
+        var result = await _fornecedorInterface.UpdateFornecedor(fornecedorDto);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //deleta fornecedor por id
     [HttpDelete]
     public async Task<ActionResult<ServiceResponse<FornecedorModel>>> DeleteItem(int id)
     {
-        ServiceResponse<List<FornecedorModel>> serviceResponse = await _fornecedorInterface.DeleteFornecedor(id);
-        return Ok(serviceResponse);
+        var result = await _fornecedorInterface.DeleteFornecedor(id);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
 }

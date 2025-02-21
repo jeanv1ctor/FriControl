@@ -20,7 +20,12 @@ public class ItemController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> CreateItem(CreateItemDto itemDto)
     {
-        return Ok(await _itemInterface.CreateItem(itemDto));
+        var result = await _itemInterface.CreateItem(itemDto);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //retorna lista de item
@@ -34,6 +39,11 @@ public class ItemController : ControllerBase
     [HttpGet("{patrimonio}")]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> GetItemByPatrimonio(int patrimonio)
     {
+        var result = await _itemInterface.GetItemByPatrimonio(patrimonio);
+        if (result.Sucesso == false)
+        {
+            return NotFound(result);
+        }
         return Ok(await _itemInterface.GetItemByPatrimonio(patrimonio));
     }
     
@@ -41,24 +51,37 @@ public class ItemController : ControllerBase
     [HttpPut]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> UpdateItem(UpdateItemDto itemEditadoDto)
     {
-        ServiceResponse<List<ItemModel>> serviceResponse = await _itemInterface.UpdateItem(itemEditadoDto);
-        return Ok(serviceResponse);
+        var result = await _itemInterface.UpdateItem(itemEditadoDto);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //deleta item por patrimonio
     [HttpDelete]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> DeleteItem(int patrimonio)
     {
-        ServiceResponse<List<ItemModel>> serviceResponse = await _itemInterface.DeleteItem(patrimonio);
-        return Ok(serviceResponse);
+        var result = await _itemInterface.DeleteItem(patrimonio);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        
+        return Ok(result);
     }
     
     //inativa item especifico por patrimonio 
     [HttpPut("inativa_item")]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> InativaItem(int patrimonio)
     {
-        ServiceResponse<List<ItemModel>> serviceResponse = await _itemInterface.InativaItem(patrimonio);
-        return Ok(serviceResponse);
+        var result = await _itemInterface.InativaItem(patrimonio);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //transfere item para outro funcionário
@@ -66,9 +89,13 @@ public class ItemController : ControllerBase
     [HttpPut("transfere_item")]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> TransfereItem(int patrimonio, int funcionarioId)
     {
-        ServiceResponse<List<ItemModel>> serviceResponse = await _itemInterface.TransfereItem(patrimonio, funcionarioId);
+        var result = await _itemInterface.TransfereItem(patrimonio, funcionarioId);
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
         
-        return Ok(serviceResponse);
+        return Ok(result);
     }
 
 }
