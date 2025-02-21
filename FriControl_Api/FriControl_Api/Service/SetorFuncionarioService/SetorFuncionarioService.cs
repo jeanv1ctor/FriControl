@@ -111,6 +111,7 @@ public class SetorFuncionarioService : ISetorFuncionarioInterface
                 serviceResponse.Sucesso = false;
             }
             setor.NomeSetor = setorEditado.NomeSetor;
+            setor.DataDeAlteracao = DateTime.Now;
             
             _context.SetorFuncionarios.Update(setor);
             await _context.SaveChangesAsync();

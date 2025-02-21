@@ -125,8 +125,7 @@ public class FuncionarioService : IFuncionarioInterface
             funcionario.Cidade = funcionarioEditadoDto.Cidade;
             funcionario.Bairro = funcionarioEditadoDto.Bairro;
             funcionario.Uf = funcionarioEditadoDto.Uf;
-            funcionario.DataDeAlteracao = funcionarioEditadoDto.DataDeAlteracao;
-            funcionario.DataDeCriacao = funcionarioEditadoDto.DataDeCriacao;
+            funcionario.DataDeAlteracao = DateTime.Now;
             funcionario.SetorId = funcionarioEditadoDto.SetorId;
             funcionario.Ativo = funcionarioEditadoDto.Ativo;
 
@@ -184,6 +183,7 @@ public class FuncionarioService : IFuncionarioInterface
                 serviceResponse.Sucesso = false;
             }
             funcionario.Ativo = false;
+            funcionario.DataDeAlteracao = DateTime.Now;
             _context.Funcionarios.Update(funcionario);
             await _context.SaveChangesAsync();
             

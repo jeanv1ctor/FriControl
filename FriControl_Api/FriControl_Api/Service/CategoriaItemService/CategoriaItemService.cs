@@ -114,6 +114,7 @@ public class CategoriaItemService : ICategoriaItemInterface
                 serviceResponse.Sucesso = false;
             }
             categoria.NomeCategoria = categoriaEditado.NomeCategoria;
+            categoria.DataDeAlteracao = DateTime.Now;
             
             _context.Categorias.Update(categoria);
             await _context.SaveChangesAsync();

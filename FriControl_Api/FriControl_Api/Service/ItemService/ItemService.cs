@@ -195,6 +195,7 @@ public class ItemService : IItemInterface
             }
 
             item.Ativo = false;
+            item.DataDeAlteracao = DateTime.Now;
             _context.Items.Update(item);
             await _context.SaveChangesAsync();
             
@@ -227,6 +228,7 @@ public class ItemService : IItemInterface
             }
 
             item.FuncionarioId = funcionario.Id;
+            item.DataDeAlteracao = DateTime.Now;
             _context.Items.Update(item);
             await _context.SaveChangesAsync();
             

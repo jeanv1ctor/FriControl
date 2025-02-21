@@ -127,8 +127,7 @@ public class FornecedorService : IFornecedorInterface
             fornecedor.Telefone = fornecedorDto.Telefone;
             fornecedor.Email = fornecedorDto.Email;
             fornecedor.Ativo = fornecedorDto.Ativo;
-            fornecedor.DataDeCriacao = fornecedorDto.DataDeCriacao;
-            fornecedor.DataDeAlteracao = fornecedorDto.DataDeAlteracao;
+            fornecedor.DataDeAlteracao = DateTime.Now;
             
             _context.Fornecedores.Update(fornecedor);
             await _context.SaveChangesAsync();
@@ -182,6 +181,10 @@ public class FornecedorService : IFornecedorInterface
                 serviceResponse.Mensagem = "Nenhum fornecedor com esse registro encontrado";
                 serviceResponse.Sucesso = false;
             }
+            fornecedor.Ativo = false;
+            fornecedor.DataDeAlteracao = DateTime.Now;
+            _context.Fornecedores.Update(fornecedor);
+            await _context.SaveChangesAsync();
             serviceResponse.Dados = _context.Fornecedores.ToList();
             
         }
