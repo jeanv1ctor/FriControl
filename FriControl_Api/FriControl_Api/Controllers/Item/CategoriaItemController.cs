@@ -20,7 +20,13 @@ public class CategoriaItemController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<ServiceResponse<List<CategoriaItemModel>>>> CreateCategoria(CreateCategoriaDto categoria)
     {
-        return Ok(await _categoriaItemInterface.CreateCategoria(categoria));
+        var result = await _categoriaItemInterface.CreateCategoria(categoria);
+        
+        if (result.Sucesso == false)
+        {
+            return BadRequest(result.Mensagem);
+        }
+        return Ok(result);
     }
     
     //retorna lista de categoria

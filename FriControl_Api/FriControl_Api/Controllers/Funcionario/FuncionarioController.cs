@@ -83,7 +83,7 @@ public class FuncionarioController : ControllerBase
     }
     
     //inativa funcionario especifico por id 
-    [HttpPut("inativa funcionario")]
+    [HttpPut("inativa_funcionario")]
     public async Task<ActionResult<ServiceResponse<FuncionarioModel>>> InativaFuncionario(int id)
     {
         var result = await _funcionarioInterface.InativaFuncionario(id);

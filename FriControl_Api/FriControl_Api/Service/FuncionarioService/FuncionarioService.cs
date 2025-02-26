@@ -1,6 +1,7 @@
 ﻿using FriControl_Api.Data;
 using FriControl_Api.DTO.Funcionario;
 using FriControl_Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FriControl_Api.Service.FuncionarioService;
 

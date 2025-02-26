@@ -2,6 +2,7 @@
 using FriControl_Api.DTO.Fornecedor;
 using FriControl_Api.Models;
 using FriControl_Api.Models.Fornecedor;
+using Microsoft.EntityFrameworkCore;
 
 namespace FriControl_Api.Service.ForncedorService;
 
