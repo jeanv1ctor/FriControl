@@ -5,5 +5,6 @@ namespace FriControl_Api.Service.UsuarioService;
 
 public interface IAuthInterface
 {
-    Task<ServiceResponse<List<UsuarioModel>>> RegistraUsuario(CreateUsuarioDto usuario);
+    Task<ServiceResponse<List<UsuarioModel>>> CreateUsuario(CreateUsuarioDto usuario);
+    Task<ServiceResponse<string>> Login(LoginUsuarioDto usuario);
 }
