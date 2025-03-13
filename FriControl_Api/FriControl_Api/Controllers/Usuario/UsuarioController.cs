@@ -1,5 +1,6 @@
 ﻿using FriControl_Api.DTO.Usuario;
 using FriControl_Api.Service.UsuarioService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriControl_Api.Controllers.Usuario;
@@ -14,8 +15,9 @@ public class UsuarioController : ControllerBase
     {
         _authInterface = authInterface;
     }
-
+    
     [HttpPost("registro")]
+    [Authorize]
     public async Task<IActionResult> CreateUsuario(CreateUsuarioDto usuarioRegistro)
     {
         var result = await _authInterface.CreateUsuario(usuarioRegistro);
@@ -25,7 +27,9 @@ public class UsuarioController : ControllerBase
         }
         return Ok(result);
     }
+    
     [HttpPost("login")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login(LoginUsuarioDto usuarioLogin)
     {
         var response = await _authInterface.Login(usuarioLogin);

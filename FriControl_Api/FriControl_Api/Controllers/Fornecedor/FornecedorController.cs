@@ -3,6 +3,7 @@ using FriControl_Api.Models;
 using FriControl_Api.Models.Fornecedor;
 using FriControl_Api.Service;
 using FriControl_Api.Service.ForncedorService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriControl_Api.Controllers.Fornecedor;
@@ -20,6 +21,7 @@ public class FornecedorController : ControllerBase
     
     //cria novo fornecedor
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<FornecedorModel>>>> CreateFornecedor(CreateFornecedorDto fornecedorDto)
     {
         var result = await _fornecedorInterface.CreateFornecedor(fornecedorDto);
@@ -32,6 +34,7 @@ public class FornecedorController : ControllerBase
     //retorna lista de fornecedor
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<FornecedorModel>>>> GetFornecedor()
     {
         var result = await _fornecedorInterface.GetFornecedor();
@@ -44,6 +47,7 @@ public class FornecedorController : ControllerBase
     
     //retorna fornecedor especifico por id 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<FornecedorModel>>> GetItemByPatrimonio(int id)
     {
         var result = await _fornecedorInterface.GetFornecedorById(id);
@@ -55,6 +59,7 @@ public class FornecedorController : ControllerBase
     }
     //atualiza fornecedor especifico por id 
     [HttpPut]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<FornecedorModel>>> UpdateItem(UpdateFornecedorDto fornecedorDto)
     {
         var result = await _fornecedorInterface.UpdateFornecedor(fornecedorDto);
@@ -67,6 +72,7 @@ public class FornecedorController : ControllerBase
     
     //deleta fornecedor por id
     [HttpDelete]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<FornecedorModel>>> DeleteItem(int id)
     {
         var result = await _fornecedorInterface.DeleteFornecedor(id);

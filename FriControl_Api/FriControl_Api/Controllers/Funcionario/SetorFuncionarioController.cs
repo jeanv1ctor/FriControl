@@ -1,6 +1,7 @@
 ﻿using FriControl_Api.DTO.SetorFuncionario;
 using FriControl_Api.Models;
 using FriControl_Api.Service.SetorFuncionarioService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriControl_Api.Controllers;
@@ -17,6 +18,7 @@ public class SetorFuncionarioController : ControllerBase
 
     //cria novo setor
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<SetorFuncionarioModel>>>> CreateSetorFuncionario(
         CreateSetorDto setorDto)
     {
@@ -30,6 +32,7 @@ public class SetorFuncionarioController : ControllerBase
     
     //retorna lista de setores
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<SetorFuncionarioModel>>>> GetSetorFuncionario()
     {
         var result = await _setorFuncionarioInterface.GetSetor();
@@ -42,6 +45,7 @@ public class SetorFuncionarioController : ControllerBase
     
     //retorna setor especifico por id
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<SetorFuncionarioModel>>> GetSetorFuncionarioById(int id)
     {
         var result = await _setorFuncionarioInterface.GetSetorById(id);
@@ -54,6 +58,7 @@ public class SetorFuncionarioController : ControllerBase
     
     //atualiza setor especifico por id
     [HttpPut]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<SetorFuncionarioModel>>> UpdateSetorFuncionario(UpdateSetorDto setorDto)
     {
         var result = await _setorFuncionarioInterface.UpdateSetor(setorDto);
@@ -66,6 +71,7 @@ public class SetorFuncionarioController : ControllerBase
     }
     //deleta setor por id
     [HttpDelete]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<SetorFuncionarioModel>>> DeleteSetor(int id)
     {
         var result = await _setorFuncionarioInterface.DeteleSetor(id);

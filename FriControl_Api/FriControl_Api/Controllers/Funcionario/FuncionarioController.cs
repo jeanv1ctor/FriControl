@@ -3,6 +3,7 @@
 using FriControl_Api.DTO.Funcionario;
 using FriControl_Api.Models;
 using FriControl_Api.Service.FuncionarioService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriControl_Api.Controllers;
@@ -21,6 +22,7 @@ public class FuncionarioController : ControllerBase
     //cria novo funcionario
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> CreateFuncionario(CreateFuncionarioDto funcionarioDto)
     {
         var result = await _funcionarioInterface.CreateFuncionario(funcionarioDto);
@@ -34,6 +36,7 @@ public class FuncionarioController : ControllerBase
     
     //retorna lista de funcionarios
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> GetFuncionario()
     {
         var result = await _funcionarioInterface.GetFuncionario();
@@ -47,6 +50,7 @@ public class FuncionarioController : ControllerBase
     
     //retorna funcionario especifico por id
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> GetFuncionarioById(int id)
     {
         var result = await _funcionarioInterface.GetFuncionarioById(id);
@@ -60,6 +64,7 @@ public class FuncionarioController : ControllerBase
     //atualiza funcionario especifico por id
 
     [HttpPut]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<ItemModel>>>> UpdateFuncionario(UpdateFuncionarioDto funcionarioDto)
     {
         var result = await _funcionarioInterface.UpdateFuncionario(funcionarioDto);
@@ -72,6 +77,7 @@ public class FuncionarioController : ControllerBase
     
     //deleta funcionario por id
     [HttpDelete]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> DeleteFuncionario(int id)
     {
         var result = await _funcionarioInterface.DeleteFuncionario(id);
@@ -84,6 +90,7 @@ public class FuncionarioController : ControllerBase
     
     //inativa funcionario especifico por id 
     [HttpPut("inativa_funcionario")]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<FuncionarioModel>>> InativaFuncionario(int id)
     {
         var result = await _funcionarioInterface.InativaFuncionario(id);

@@ -1,6 +1,7 @@
 ﻿using FriControl_Api.DTO.Item;
 using FriControl_Api.Models;
 using FriControl_Api.Service.CategoriaItemService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FriControl_Api.Controllers;
@@ -17,7 +18,9 @@ public class CategoriaItemController : ControllerBase
     }
     
     //cria nova Categoria
+
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<List<CategoriaItemModel>>>> CreateCategoria(CreateCategoriaDto categoria)
     {
         var result = await _categoriaItemInterface.CreateCategoria(categoria);
@@ -30,6 +33,7 @@ public class CategoriaItemController : ControllerBase
     }
     
     //retorna lista de categoria
+    [Authorize(Roles = "Administrador")]
     [HttpGet]
     public async Task<IActionResult> GetCategoria()
     {
@@ -44,6 +48,7 @@ public class CategoriaItemController : ControllerBase
     
     //retorna categoria especifica por id 
     [HttpGet("{id}")]
+    [Authorize(Roles = "Administrator")]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> GetCategoriaById(int id)
     {
         var result = await _categoriaItemInterface.GetCategoriaById(id);
@@ -57,6 +62,7 @@ public class CategoriaItemController : ControllerBase
     
     //atualiza categoria especifica por id 
     [HttpPut]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<ItemModel>>> UpdateItem(UpdateCategoriaDto categoriaEditado)
     {
         var result = await _categoriaItemInterface.UpdateCategoria(categoriaEditado);
@@ -69,6 +75,7 @@ public class CategoriaItemController : ControllerBase
     
     //deleta categoria por id
     [HttpDelete]
+    [Authorize]
     public async Task<ActionResult<ServiceResponse<CategoriaItemModel>>> DeleteCategoria(int id)
     {
         var result = await _categoriaItemInterface.DeteleCategoria(id);

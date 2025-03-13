@@ -39,27 +39,23 @@ public class SenhaService : ISenhaInterface
 
     public string CriarToken(UsuarioModel usuario)
     {
-        List<Claim> claims = new List<Claim>()
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
-            new Claim("Cargo", usuario.Cargo.ToString()),
-            new Claim("Email", usuario.Email),
+            Subject = new ClaimsIdentity(new [] //definindo as claims
+            {
+                new Claim(ClaimTypes.Name, usuario.Nome),
+                new Claim(ClaimTypes.Email, usuario.Email),
+                new Claim(ClaimTypes.Role, usuario.Cargo.ToString())
+            }),
+            Expires = DateTime.UtcNow.AddHours(8),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
         };
-        //puxa o token pre definido no appsettings
-        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
         
-        //gera credencial
-        var credenciais = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-        
-        //cria as informações do token
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.Now.AddDays(1),
-            signingCredentials: credenciais
-        );
-        //cria o token completo
-        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-        
-        return jwt;
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token); 
+
     }
 }
 
