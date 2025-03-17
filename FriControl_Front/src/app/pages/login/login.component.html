@@ -5,10 +5,10 @@
         <h1 class="titulo">FriControl</h1>
         <h2 class="subtitulo">Controle de inventário</h2>
 
-        <input type="email" class="input-form" placeholder="Digite o email" required>
-        <input type="password" class="input-form" placeholder="Digite sua senha" required>
+        <input [(ngModel)]="email" [ngModelOptions] = "{standalone: true}" type="email" class="input-form" placeholder="Digite o email" required>
+        <input [(ngModel)]="senha" [ngModelOptions] = "{standalone: true}" type="password" class="input-form" placeholder="Digite sua senha" required>
 
-        <app-button textButton="Acessar" size="100"></app-button>
+        <app-button textButton="Acessar" size="100" (click)="login()"></app-button>
     </form>
     <p class="footer"> © 2025 - Desenvolvido por Jean Victor </p>
 </div>
