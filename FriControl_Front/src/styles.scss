@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root{
+    --primary-color: rgba(75, 80, 163, 1);
+    --error-color: rgba(230, 71, 71, 1);
+    --gray-color: #747474;
+
+}
+
+.c-primary{color: var(--primary-color)}
+.c-error{color: var(--error-color)}
+.c-gary{color: var(--gray-color)}
+
+.hover:hover{cursor: pointer;}
