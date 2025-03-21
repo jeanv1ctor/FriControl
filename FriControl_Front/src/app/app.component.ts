@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonComponent } from './components/button/button.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet,
-    ButtonComponent
+    ButtonComponent,
+    MenuComponent
 
   ],
   templateUrl: './app.component.html',
