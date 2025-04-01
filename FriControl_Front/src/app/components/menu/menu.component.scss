@@ -23,8 +23,9 @@ body{
 }
 
 .sidebar:hover{
-    width: 250px;
+    width: 230px;
     transition: 0.6s ease;
+    cursor: pointer;
 }
 
 .sidebar ul{
@@ -38,7 +39,7 @@ body{
 }
 
 .sidebar ul li:hover{
-    background: #06e6e6;
+    background: var(--primary-color);
     transition: 0.3s ease;
 }
 
