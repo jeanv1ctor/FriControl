@@ -1,16 +1,35 @@
-.titulo{
-    font-size: 26px;
-    font-weight: 500;
-    padding: 0;
-    margin: 0 !important;
-    color: var(--primary-color);
-}
 
-.subtitulo{
-    font-size: 16px;
-    font-weight: 300;
-    padding: 0;
-    margin: 0 !important;
-    padding: 2px 0px 14px 0px;
-    color: var(--gray-color);
-}
+.listaitem {
+    width: auto;
+  }
+  
+  .pesquisa {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin-top: 25px; 
+    margin-bottom: 20px; 
+  }
+  
+  .table-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .adicionar {
+    width: 100%; 
+    display: flex;
+    justify-content: flex-end; 
+    margin-bottom: 20px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%; 
+    margin: 0 auto; 
+    max-width: 1200px; 
+  }
